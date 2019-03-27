@@ -17,16 +17,10 @@ import java.util.Set;
 public class ListXML {
     public static final String FILE_NAME = "list.xml";
 
-    public static void main(String[] args) {
-        List<Map<List<Set<Integer>>, String>> list = createList();
-        listToXML(list);
-    }
-
-    private static void listToXML(List<Map<List<Set<Integer>>, String>> list) {
-        try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(FILE_NAME))) {
-            XMLEncoder xmlEncoder = new XMLEncoder(bufferedOutputStream);
+    public static void listToXML(List<Map<List<Set<Integer>>, String>> list) {
+        try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(FILE_NAME));
+             XMLEncoder xmlEncoder = new XMLEncoder(bufferedOutputStream)) {
             xmlEncoder.writeObject(list);
-            xmlEncoder.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +47,7 @@ public class ListXML {
         return map;
     }
 
-    private static List<Map<List<Set<Integer>>, String>> createList() {
+    public static List<Map<List<Set<Integer>>, String>> createList() {
         List<Map<List<Set<Integer>>, String>> list = new ArrayList<>();
         list.add(createMap());
         list.add(createMap());
